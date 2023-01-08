@@ -1,0 +1,141 @@
+<div>
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/60/Logo_inDriver.png " height="170 " width="380 " class="rounded mx-auto d-block">
+</div><br>
+<div class="alert alert-success card">
+    <h1 class="alert alert-success text-center">Online Booking Form</h1>
+
+    <form #frm="ngForm" (ngSubmit)="submit(frm)">
+        <div class="alert alert-success form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>
+                        <label for="id1">Title : </label>
+                        <input type="text" class="form-control" pattern="Mr" [(ngModel)]="title" #F1="ngModel" id="id1" name="F1" required>
+                        <div class="alert alert-dark" *ngIf="F1.touched && !F1.valid">
+                            Pattern doesnt matched...
+                        </div><br>
+                        <label for="id2">First Name : </label>
+                        <input type="text" class="form-control" #F2="ngModel" required [(ngModel)]="fname" id="id2" name="F2">
+                        <div class="alert alert-dark" *ngIf="F2.touched && !F2.valid">
+                            This field is required...
+                        </div><br>
+                        <label for="id3">Last Name : </label>
+                        <input type="text" class="form-control" #F3="ngModel" [(ngModel)]="lname" id="id3" name="F3">
+                        <br>
+                        <label><font [color]="val">Email : </font></label><br>
+                        <input type="email" class="form-control" #F4="ngModel" required [(ngModel)]="email" name="F4">
+                        <div class="alert alert-dark" *ngIf="F4.touched && !F4.valid">
+                            Email is required.
+                        </div><br>
+                        <label>Confirm Email : </label><br>
+                        <input type="email" class="form-control" #F5="ngModel" required [(ngModel)]="conemail" name="F5">
+                        <div class="alert alert-dark" *ngIf="F5.touched && !F5.valid || F5.value!=F4.value">
+                            Email didn't Matched.
+                        </div><br>
+                        <label>Phone : </label><br>
+                        <input type="text" class="form-control" #F6="ngModel" maxlength="14" required placeholder="+91" [(ngModel)]="phone" name="F6">
+                        <div class="alert alert-dark" *ngIf="F6.touched && !F6.valid">
+                            Conatct is required...
+                        </div><br>
+                        <div ngModelGroup="Address" #addr="ngModelGroup">
+                            <label>Pick-up Location : </label><br>
+                            <label for="iddrop">City : </label>
+                            <select name="city" #F7="ngModel" ngModel id="iddrop" class="form-control" required>
+                              <option *ngFor="let ct of city" [value]="ct.name" name="F7">{{ct.name}}</option>
+                            </select>
+                            <div class="alert alert-dark" *ngIf="F7.touched && !F7.valid">
+                                This field is required...
+                            </div>
+                            <label for="iddrop2">State : </label>
+                            <select name="state" ngModel #F8="ngModel" id="iddrop2" class="form-control" required>
+                              <option *ngFor="let st of state" [value]="st.namee" name="F8">{{st.namee}}</option>
+                            </select>
+                            <div class="alert alert-dark" *ngIf="F8.touched && !F8.valid">
+                                This field is required...
+                            </div><br><br>
+                            <label>Drop-off Location : </label><br>
+                            <label for="iddrop">City : </label>
+                            <select name="city" ngModel #F9="ngModel" id="iddrop" class="form-control">
+                              <option *ngFor="let ct of city" [value]="ct.name" name="F9">{{ct.name}}</option>
+                            </select>
+                            <div class="alert alert-dark" *ngIf="F9.touched && !F9.valid">
+                                This field is required...
+                            </div>
+                            <label for="iddrop2">State : </label>
+                            <select name="state" ngModel #F10="ngModel" id="iddrop2" class="form-control">
+                              <option *ngFor="let st of state" [value]="st.namee" name="F10">{{st.namee}}</option>
+                            </select>
+                            <div class="alert alert-dark" *ngIf="F10.touched && !F10.valid">
+                                This field is required...
+                            </div><br><br>
+                            <label>Country : </label><br>
+                            <input type="text" class="form-control" #F11="ngModel" disabled [(ngModel)]="country" name="F11"><br>
+                            <label>Travelling Date & Time : </label><br>
+                            <input type="date" min="2022-11-16" required class="form-control">
+                            <input type="time" class="form-control" required><br><br>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" name="driver" value="Driver" checked>Need Driver</label><br><br>
+                                        <label for="vty ">Vehicle Type : [Sedan / SUV / Hatch]</label>
+                                        <input type="text" id="vty" #F12="ngModel" class="form-control" pattern="SUV" [(ngModel)]="vtype" placeholder="eg. SUV " name="F12" required>
+                                        <div class="alert alert-dark" *ngIf="F12.touched && !F12.valid">
+                                            only SUVs are available.
+                                        </div><br>
+                                        <label for="pass ">No of Passengers : </label>
+                                        <input type="number" id="pass" #F13="ngModel" placeholder="No of passengers" name="F13" class="form-control" [(ngModel)]="passen" required>
+                                        <div class="alert alert-dark" *ngIf="F13.touched && !F13.valid || F13.value>6">
+                                            Maximum limit is 6 person.
+                                        </div><br>
+                                        <label for="note">Instructions for Driver : </label>
+                                        <textarea name="F14" cols="20" rows="8" #F14="ngModel" class="form-control" placeholder="Share your thoughts... " [(ngModel)]="inst"></textarea>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <label><input type="checkbox" name="owner" value="Owner">Drive by own</label><br><br>
+                                        <label for="car">Vehicle details : </label><br><br>
+                                        <label for="brand">Vehicle Brand : </label><br>
+                                        <input type="text" #F15="ngModel" class="form-control" placeholder="eg. Ford " name="F15" [(ngModel)]="brnd">
+                                        <div class="alert alert-dark" *ngIf="F15.touched && !F15.valid">
+                                            This field is required...
+                                        </div><br>
+                                        <label for="model">Vehicle Model : </label><br>
+                                        <input type="text" class="form-control" #F16="ngModel" placeholder="eg. Endeavour" name="F16" [(ngModel)]="mdl">
+                                        <div class="alert alert-dark" *ngIf="F16.touched && !F16.valid">
+                                            This field is required...
+                                        </div><br>
+                                        <label for="lic">Driving License Upload : </label>
+                                        <input type="file" class="form-control" required name="F17">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <label>Other Requirements : </label> <textarea name="F15" cols="30" rows="2" class="form-control" [(ngModel)]="req"></textarea>
+                            <br>
+                            <input type="checkbox" checked> Accepted all the terms and conditions. <br><br>
+                        </div>
+                        <button class="btn btn-success btn-lg" [disabled]="!frm.valid" type="submit" (click)="accept()">Submit</button>
+                    </h5>
+                </div>
+                <div class="col-sm-6 ">
+                    <br>
+                    <h5>
+                        Title : {{title}}
+                        <br>Name : {{fname}} {{lname}}
+                        <br>Email : {{email}}
+                        <br>Confirm Email : {{conemail}}
+                        <br>Phone(+91) : {{phone}}
+                        <br>Country : {{country}}
+                        <br><br>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6"><b>If Driver needed.</b><br> Vehicle Type : {{vtype}} <br> No of Passengers : {{passen}} <br> Instructions to drivers : {{inst}}
+                                </div>
+                                <div class="col-sm-6"><b>If Driving by own</b><br> Vehicle Brand : {{brnd}}<br> Vehicle Model : {{mdl}}</div>
+                            </div>
+                        </div>
+                        <br>Other Requirements : {{req}}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
